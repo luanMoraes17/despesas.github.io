@@ -76,13 +76,45 @@ class FinanceManager {
                     <strong>${transaction.description}</strong>
                     <p>${transaction.category} - ${transaction.date}</p>
                 </div>
-                <span class="${transaction.type}">
-                    ${transaction.type === 'receita' ? '+' : '-'} 
-                    ${this.formatCurrency(transaction.amount)}
-                </span>
+                <div class="transaction-info">
+                    <span class="${transaction.type}">
+                        ${transaction.type === 'receita' ? '+' : '-'} 
+                        ${this.formatCurrency(transaction.amount)}
+                    </span>
+                    <div class="transaction-buttons">
+                        <button class="edit-btn" onclick="financeManager.editTransaction(${transaction.id})">Editar</button>
+                        <button class="delete-btn" onclick="financeManager.deleteTransaction(${transaction.id})">Excluir</button>
+                    </div>
+                </div>
             `;
             transactionList.appendChild(div);
         });
+    }
+
+    deleteTransaction(id) {
+        if (confirm('Tem certeza que deseja excluir esta transação?')) {
+            this.transactions = this.transactions.filter(t => t.id !== id);
+            this.saveToLocalStorage();
+            this.updateDisplay();
+        }
+    }
+
+    editTransaction(id) {
+        const transaction = this.transactions.find(t => t.id === id);
+        if (transaction) {
+            document.getElementById('description').value = transaction.description;
+            document.getElementById('amount').value = transaction.amount;
+            document.getElementById('category').value = transaction.category;
+            document.getElementById('type').value = transaction.type;
+            
+            // Remove the old transaction
+            this.transactions = this.transactions.filter(t => t.id !== id);
+            this.saveToLocalStorage();
+            this.updateDisplay();
+            
+            // Scroll to form
+            document.querySelector('.add-transaction').scrollIntoView({ behavior: 'smooth' });
+        }
     }
 }
 
