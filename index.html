@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6C63FF">
+    <meta name="description" content="Aplicativo para controle de gastos e receitas">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Controle Financeiro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Luan Moraes</h1>
+            <h1>Controle Financeiro Pessoal</h1>
+        </header>
+
+        <div class="add-transaction">
+            <h2>Nova Transação</h2>
+            <form id="transactionForm">
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <input type="text" id="description" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Valor (R$)</label>
+                    <input type="number" id="amount" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoria</label>
+                    <select id="category" required>
+                        <option value="salario">Salário</option>
+                        <option value="cartao">Cartão de Crédito</option>
+                        <option value="moradia">Moradia</option>
+                        <option value="alimentacao">Alimentação</option>
+                        <option value="entretenimento">Entretenimento</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Tipo</label>
+                    <select id="type" required>
+                        <option value="receita">Receita</option>
+                        <option value="despesa">Despesa</option>
+                    </select>
+                </div>
+
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+
+        <div class="summary">
+            <div class="balance">
+                <h3>Saldo Total</h3>
+                <p id="totalBalance">R$ 0,00</p>
+            </div>
+            <div class="income">
+                <h3>Receitas</h3>
+                <p id="totalIncome">R$ 0,00</p>
+            </div>
+            <div class="expenses">
+                <h3>Despesas</h3>
+                <p id="totalExpenses">R$ 0,00</p>
+            </div>
+        </div>
+
+        <div class="transactions">
+            <h2>Histórico de Transações</h2>
+            <div id="transactionList"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    await navigator.serviceWorker.register('/sw.js', {
+                        scope: '/'
+                    });
+                    console.log('Service Worker registrado com sucesso');
+                } catch (err) {
+                    console.log('Falha ao registrar Service Worker:', err);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
