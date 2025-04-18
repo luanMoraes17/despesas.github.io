@@ -113,14 +113,18 @@ button:hover {
 .transaction-buttons {
     display: flex;
     gap: 10px;
+    margin-left: 15px;
 }
 
 .edit-btn, .delete-btn {
     padding: 5px 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .edit-btn {
@@ -139,6 +143,11 @@ button:hover {
 
 .delete-btn:hover {
     background-color: #ff3939;
+}
+
+.transaction-info {
+    display: flex;
+    align-items: center;
 }
 
 .transaction-item:last-child {

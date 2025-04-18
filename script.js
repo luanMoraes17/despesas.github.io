@@ -82,8 +82,12 @@ class FinanceManager {
                         ${this.formatCurrency(transaction.amount)}
                     </span>
                     <div class="transaction-buttons">
-                        <button class="edit-btn" onclick="financeManager.editTransaction(${transaction.id})">Editar</button>
-                        <button class="delete-btn" onclick="financeManager.deleteTransaction(${transaction.id})">Excluir</button>
+                        <button class="edit-btn" onclick="financeManager.editTransaction(${transaction.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="delete-btn" onclick="financeManager.deleteTransaction(${transaction.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
                     </div>
                 </div>
             `;
@@ -107,12 +111,10 @@ class FinanceManager {
             document.getElementById('category').value = transaction.category;
             document.getElementById('type').value = transaction.type;
             
-            // Remove the old transaction
             this.transactions = this.transactions.filter(t => t.id !== id);
             this.saveToLocalStorage();
             this.updateDisplay();
             
-            // Scroll to form
             document.querySelector('.add-transaction').scrollIntoView({ behavior: 'smooth' });
         }
     }
